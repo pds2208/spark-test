@@ -44,6 +44,8 @@ object SparkSQLRunner {
     //ds.printSchema
     //ds.createOrReplaceTempView("person")
 
+    println(s"Starting Query")
+
     val v: Dataset[(Int, String, Int, String)] =
       ds.select(
         'PersonId.as("PersonKey").as[Int],
