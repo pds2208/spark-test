@@ -1,5 +1,3 @@
-import org.antlr.v4.runtime.atn.SemanticContext.AND
-import org.apache.hadoop.yarn.webapp.hamlet.HamletSpec.SELECT
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
 
@@ -52,8 +50,7 @@ object SparkSQLRunner {
         lit("XYZ").as("IdentifierName").as[String],
         'PersonIndex.as("Extension").as[Int],
         lit("A").as("Status").as[String]
-      )
-        .filter('PersonId.isNotNull && 'PersonIndex.isNotNull)
+      ).where('PersonId.isNotNull && 'PersonIndex.isNotNull)
 
     val w: Dataset[(Int, String, Int, String)] =
       ds.select(
@@ -61,8 +58,7 @@ object SparkSQLRunner {
         lit("ABC").as("IdentifierName").as[String],
         'RecordNumber.as("Extension").as[Int],
         lit("A").as("RecordStatus").as[String]
-      )
-        .filter('PersonId.isNotNull && 'RecordNumber.isNotNull)
+      ).where('PersonId.isNotNull && 'RecordNumber.isNotNull)
 
     val x: Dataset[(Int, String, Int, String)] =
       ds.select(
@@ -70,9 +66,7 @@ object SparkSQLRunner {
         lit("MNO").as("IdentifierName").as[String],
         'SSN.as("Extension").as[Int],
         lit("A").as("RecordStatus").as[String]
-      )
-        .filter('PersonId.isNotNull && 'SSN.isNotNull)
-
+      ).where('PersonId.isNotNull && 'SSN.isNotNull)
 
     v.union(w)
       .union(x)
